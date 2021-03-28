@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <title>{%  block title %}La boite à idées {% endblock %}</title>
+</head>
+
+<body>
+        <header>
+            <nav class="navbar">
+                <a href="{{ path('home') }}">
+                        <img class="logo" src="{{ asset('img/idea-logo.png') }}">
+                </a>
+
+                <a class="appName" href="{{ path('home') }}">La boite à idées</a>
+
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a class="menu" href="{{ path('idea_add') }}">Ajouter une idée</a>
+                    <a class="menu" href="{{ path('logout') }}">Déconnexion</a>
+                {% else %}
+                    <a class="menu" href="{{ path('login') }}">Connexion</a>
+                {% endif %}
+            </nav>
+
+        </header>
+
+        {# display messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {%  block main %}{% endblock %}
+
+
+        <footer>
+            &copy La boite à idées - Aline Marchal - {{ "now" |date("Y")}}
+        </footer>
+
+</body>
+</html>

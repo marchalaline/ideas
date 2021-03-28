@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} La boite à idées | Nouvelle idée {% endblock %}
+
+{% block main %}
+    <div class="marginTop">
+
+
+        <h1 class="text-center">
+            {# Test if idea exists, if yes => update, if no=>create #}
+            {% if idea.id == null %}
+            Ajouter une idée
+            {% else %}
+            Modifier mon idée
+            {% endif %}
+        </h1>
+
+        <div class="form">
+            {{ form_start(ideaForm) }}
+
+            {{ form_widget(ideaForm) }}
+            <button class="app-btn" type="submit">
+                {# Test if idea exists, if yes => update, if no=>create #}
+                {% if idea.id == null %}
+                    Ajouter
+                {% else %}
+                    Modifier
+                {% endif %}
+            </button>
+
+            {{ form_end(ideaForm) }}
+        </div>
+
+    </div>
+
+{% endblock %}

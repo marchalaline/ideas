@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} La boite à idées | Accueil {% endblock %}
+
+{% block main %}
+
+    <div class="ideas-block">
+
+        {%  for idea in ideas %}
+            <div class="idea-block">
+                <img class="idea-img" src="{{ asset('img/idea-logo.png') }}">
+                <a class="idea-title" href="{{ path('idea_detail',{id: idea.id}) }}">{{ idea.title }}</a>
+                <p class="idea-author"> une idée proposée par {{ idea.author }}</p>
+                <p class="idea-description">{{ idea.description }}</p>
+
+                {% set connected = is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% set hasNotVoted = idea.votes | length < 1 %}
+
+                {%  if (connected == true and hasNotVoted == true) %}
+                    {% set enableVote = true %}
+                {%  else %}
+                    {% set enableVote = false %}
+                {% endif %}
+
+
+                {% set refThumbUp = enableVote ? path('idea_thumbUp',{id: idea.id}) : "#" %}
+                {% set refThumbDown = enableVote ? path('idea_thumbDown',{id: idea.id}) : "#" %}
+
+                {% set refClass = enableVote ? "" : "vote-disabled" %}
+
+                <a href="{{ refThumbUp }}" class="{{ refClass }}">
+                    <img class="idea-img" src="{{ asset('img/thumb.png') }}">
+                    {{ idea.thumbUp }}
+                </a>
+
+                <a href="{{ refThumbDown }}" class="{{ refClass }}">
+                    <img class="idea-img rotate180" src="{{ asset('img/thumb.png') }}">
+                    {{ idea.thumbDown }}
+                </a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+    <div class="marginTop idea-detail-container">
+        <h1> {{ idea.title }}, une idée de {{ idea.author }}</h1>
+        <p> {{ idea.description }} </p>
+        {% set var='<strong>titre</strong>'%}
+        {{ var }}
+
+    </div>
+
+    {% if idea.author == app.user.username %}
+        <a class="app-btn-balise-a" href="{{ path('idea_delete',{id: idea.id}) }}">Supprimer</a>
+        <a class="app-btn-balise-a" href="{{ path('idea_update',{id: idea.id}) }}">Modifier</a>
+
+
+    {% endif %}
+
+{% endblock %}
