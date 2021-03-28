@@ -23,8 +23,8 @@ class IdeaRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('i');
 
-        $qb ->leftJoin('i.votes','v', 'WITH', 'v.user = :userId')
-            ->addSelect('v')
+        $qb ->leftJoin('i.votes','votes', 'WITH', 'v.user = :userId')
+            ->addSelect('votes')
             ->orderBy('i.note' , 'DESC')
             ->setParameter('userId', $userId);
 
